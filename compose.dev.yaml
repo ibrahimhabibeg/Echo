@@ -1,6 +1,6 @@
 services:
-  server:
+  user:
     build:
       target: dev
     volumes:
-      - ./src:/usr/src/app/src
+      - ./user/src:/usr/src/app/src

@@ -1,9 +1,29 @@
 services:
-  server:
+  user:
     build:
-      context: .
+      context: ./user
       target: final
     environment:
       NODE_ENV: production
     ports:
       - 3000:3000
+    depends_on:
+      - mongo
+    networks:
+      - user-db
+    env_file:
+      - ./user/.env
+  mongo:
+    restart: always
+    image: mongo:7.0.0
+    volumes:
+      - ./mongo/data:/data/db
+      - ./mongo/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+    networks:
+      - user-db
+    expose:
+      - 27017
+    env_file:
+      - ./mongo/.env 
+networks:
+  user-db:
