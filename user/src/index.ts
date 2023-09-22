@@ -1,8 +1,11 @@
 import express from "express";
 import { connectDB } from "./db";
+import signupRoute from "./signup";
 
 const app = express();
+app.use(express.json());
 connectDB(app);
+signupRoute(app);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
