@@ -2,16 +2,14 @@ import express from "express";
 import { connectDB } from "./db";
 import signupRoute from "./signup";
 import loginRoute from "./login";
+import verifyRoute from "./verification";
 
 const app = express();
 app.use(express.json());
 connectDB(app);
 signupRoute(app);
 loginRoute(app);
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
+verifyRoute(app);
 
 app.on("dbConnected", () => {
   const PORT = process.env.PORT || 3000;
