@@ -9,13 +9,12 @@ import { error } from "../types/error";
  * Adds signup route to the express server.
  * @param app
  */
-const signupRoute = (app: Express) => {
+const signupRoute = (app: Express) =>
   app.post(
     "/signup",
     [usernameValidation, emailValidation, passwordValidation],
     signup
   );
-};
 
 /**
  * The type of the body for the request to signup route.
