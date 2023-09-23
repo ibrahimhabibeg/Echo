@@ -1,12 +1,14 @@
 import express from "express";
 import { connectDB } from "./db";
 import { Server } from "socket.io";
+import { verifyUser } from "./middleware";
 
 const app = express();
 const io = new Server(4000);
 app.use(express.json());
 connectDB(app);
 
+io.use(verifyUser);
 io.on("connection", (socket) => {
   console.log("a user connected");
 });
