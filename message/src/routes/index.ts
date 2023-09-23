@@ -1,2 +1,3 @@
 import getMessagesRoute from "./getMessages";
-export { getMessagesRoute };
+import getChatsRoute from "./getChats";
+export { getMessagesRoute, getChatsRoute };

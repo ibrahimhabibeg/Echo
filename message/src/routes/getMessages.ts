@@ -3,7 +3,7 @@ import { Message } from "../models";
 
 const getMessagesRoute = (app: Express) => {
   app.get(
-    "/getMessages",
+    "/messages",
     async (req: Request<{}, {}, ReqBody>, res: Response<ResBody>) => {
       const { userId, otherUser, cursor = Date.now(), size = 10 } = req.body;
       if (!otherUser)
