@@ -1,9 +1,15 @@
 import express from "express";
 import { connectDB } from "./db";
+import { Server } from "socket.io";
 
 const app = express();
+const io = new Server(4000);
 app.use(express.json());
 connectDB(app);
+
+io.on("connection", (socket) => {
+  console.log("a user connected");
+});
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
