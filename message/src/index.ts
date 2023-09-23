@@ -9,6 +9,7 @@ import {
   InterServerEvents,
   SocketData,
 } from "./types";
+import { getMessagesRoute } from "./routes";
 
 const app = express();
 const io = new Server<
@@ -24,6 +25,7 @@ connectDB(app);
 
 io.use(verifyUserIo);
 addConnection(io);
+getMessagesRoute(app);
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
