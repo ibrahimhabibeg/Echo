@@ -13,6 +13,20 @@ services:
       - user-db
     env_file:
       - ./user/.env
+  message:
+    build:
+      context: ./message
+      target: final
+    environment:
+      NODE_ENV: production
+    ports:
+      - 3001:3000
+    depends_on:
+      - mongo
+    networks:
+      - message-db
+    env_file:
+      - ./message/.env
   mongo:
     restart: always
     image: mongo:7.0.0
@@ -21,9 +35,11 @@ services:
       - ./mongo/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
     networks:
       - user-db
+      - message-db
     expose:
       - 27017
     env_file:
       - ./mongo/.env 
 networks:
   user-db:
+  message-db:

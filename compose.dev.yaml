@@ -4,3 +4,8 @@ services:
       target: dev
     volumes:
       - ./user/src:/usr/src/app/src
+  message:
+    build:
+      target: dev
+    volumes:
+      - ./message/src:/usr/src/app/src
