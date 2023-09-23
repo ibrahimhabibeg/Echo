@@ -11,6 +11,7 @@ services:
       - mongo
     networks:
       - user-db
+      - user-message
     env_file:
       - ./user/.env
   message:
@@ -23,8 +24,10 @@ services:
       - 3001:3000
     depends_on:
       - mongo
+      - user
     networks:
       - message-db
+      - user-message
     env_file:
       - ./message/.env
   mongo:
@@ -43,3 +46,4 @@ services:
 networks:
   user-db:
   message-db:
+  user-message:
