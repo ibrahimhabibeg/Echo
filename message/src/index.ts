@@ -1,7 +1,7 @@
 import express from "express";
 import { connectDB } from "./db";
 import { Server } from "socket.io";
-import { verifyUser } from "./middleware";
+import { verifyUserExpress, verifyUserIo } from "./middleware";
 import addConnection from "./socket";
 import {
   ClientToServerEvents,
@@ -19,9 +19,10 @@ const io = new Server<
 >(4000);
 
 app.use(express.json());
+app.use(verifyUserExpress);
 connectDB(app);
 
-io.use(verifyUser);
+io.use(verifyUserIo);
 addConnection(io);
 
 app.get("/", (req, res) => {
