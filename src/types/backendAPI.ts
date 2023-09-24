@@ -1,6 +1,6 @@
-export type loginRes = loginSuccessRes & authError;
+export type authRes = authSuccessRes & authError;
 
-interface loginSuccessRes {
+interface authSuccessRes {
   token: string;
 }
 
@@ -10,6 +10,12 @@ interface authError {
 }
 
 export interface loginReq {
+  email: string;
+  password: string;
+}
+
+export interface signupReq {
+  username: string;
   email: string;
   password: string;
 }

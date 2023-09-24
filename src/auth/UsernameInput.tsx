@@ -7,11 +7,11 @@ type propsType = {
   onChangeText: (val: string) => void;
 };
 
-const EmailInput = ({ value, error, onChangeText }: propsType) => (
+const UsernameInput = ({ value, error, onChangeText }: propsType) => (
   <>
     <TextInput
       mode="outlined"
-      label="Email"
+      label="Username"
       value={value}
       onChangeText={onChangeText}
       error={!!error}
@@ -25,4 +25,4 @@ const EmailInput = ({ value, error, onChangeText }: propsType) => (
 
 const styles = StyleSheet.create({ input: { marginTop: "2%" } });
 
-export default EmailInput;
+export default UsernameInput;

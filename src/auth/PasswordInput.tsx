@@ -5,7 +5,7 @@ import { useState } from "react";
 type propsType = {
   value: string;
   error: string;
-  onChangeText: (username: string) => void;
+  onChangeText: (val: string) => void;
 };
 
 const PasswordInput = ({ value, error, onChangeText }: propsType) => {

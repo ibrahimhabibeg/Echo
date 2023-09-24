@@ -3,12 +3,12 @@ import { ParamList } from "../Navigators/NotLogged";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { AuthContext } from "../providers/Auth";
 import { useMutation } from "@tanstack/react-query";
-import { loginReq, loginRes } from "../types";
+ import { loginReq, authRes } from "../types";
 import LoginView from "./LoginView";
 
 type propsType = NativeStackScreenProps<ParamList, "login">;
 
-const sendLoginToBackend = async (reqData: loginReq): Promise<loginRes> => {
+const sendLoginToBackend = async (reqData: loginReq): Promise<authRes> => {
   const response: Response = await fetch(
     `${process.env.EXPO_PUBLIC_USER_SERVICE_URL}/login`,
     {
@@ -26,7 +26,7 @@ const Login = ({ navigation }: propsType) => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
 
-  const onMutationFinish = ({ token, message, field }: loginRes) => {    
+  const onMutationFinish = ({ token, message, field }: authRes) => {    
     if (token) return auth.login(token);
     setErrors((oldVal) => ({ ...oldVal, [field]: message }));
   };
@@ -36,12 +36,12 @@ const Login = ({ navigation }: propsType) => {
   });
 
   const emailChangeTextHandler = (email: string) => {
-    setLoginData((oldSignupData) => ({ ...oldSignupData, email }));
+    setLoginData((oldVal) => ({ ...oldVal, email }));
     setErrors((oldVal) => ({ ...oldVal, email: "" }));
   };
 
   const passwordChangeTextHandler = (password: string) => {
-    setLoginData((oldSignupData) => ({ ...oldSignupData, password }));
+    setLoginData((oldVal) => ({ ...oldVal, password }));
     setErrors((oldVal) => ({ ...oldVal, password: "" }));
   };
 
