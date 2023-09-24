@@ -1,14 +1,17 @@
 import { AuthProvider } from "./providers/Auth";
 import { ThemeProvider } from "./providers/Theme";
 import MainNavigator from "./Navigators/Main";
+import QueryProvider from "./providers/Query";
 
 const Index = () => {
   return (
-    <AuthProvider>
-      <ThemeProvider>
-        <MainNavigator />
-      </ThemeProvider>
-    </AuthProvider>
+    <QueryProvider>
+      <AuthProvider>
+        <ThemeProvider>
+          <MainNavigator />
+        </ThemeProvider>
+      </AuthProvider>
+    </QueryProvider>
   );
 };
 
