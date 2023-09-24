@@ -1,7 +1,8 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Text } from "react-native-paper";
+import Login from "../auth/Login";
 
-type ParamList = {
+export type ParamList = {
   login: undefined;
   signup: undefined;
 };
@@ -13,7 +14,7 @@ const NotLoggedNavigator = () => (
     <Stack.Screen
       name="login"
       options={{ title: "Login" }}
-      component={() => <Text>Login</Text>}
+      component={Login}
     />
     <Stack.Screen
       name="signup"
