@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Text } from "react-native-paper";
+import ChatsList from "../chatsList/ChatLists";
 
 type ParamList = {
   chatsList: undefined;
@@ -12,7 +12,7 @@ const LoggedNavigator = () => (
     <Stack.Screen
       name="chatsList"
       options={{ title: "Chats" }}
-      component={() => <Text>Hello World!</Text>}
+      component={ChatsList}
     />
   </Stack.Navigator>
 );
