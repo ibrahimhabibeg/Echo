@@ -4,9 +4,12 @@ import { Message } from "../models";
 const getChatsRoute = (app: Express) => {
   app.get(
     "/chats",
-    async (req: Request<ReqBody, {}, {}>, res: Response<ResBody>) => {
-      const { userId, size = 10 } = req.params;
-      const cursor = req.params.cursor ? new Date(req.params.cursor) : new Date();
+    async (req: Request<ReqParams, {}, ReqBody>, res: Response<ResBody>) => {
+      const { userId } = req.body;
+      const { size = 10 } = req.params;
+      const cursor = req.params.cursor
+        ? new Date(req.params.cursor)
+        : new Date();
       try {
         const chats: chatI[] = await Message.aggregate([
           { $match: { $or: [{ to: userId }, { from: userId }] } },
@@ -57,10 +60,13 @@ interface chatI {
   createdAt: string;
 }
 
-interface ReqBody {
-  userId: string;
+interface ReqParams {
   cursor?: NativeDate;
   size?: number;
+}
+
+interface ReqBody {
+  userId: string;
 }
 
 const dbError = { message: "An unknown error has occured. Try again later." };

@@ -9,7 +9,7 @@ import { error } from "../types/error";
 const searchRoute = (app: Express) =>
   app.get(
     "/search",
-    async (req: Request<reqBody, {}, {}>, res: Response<resBody>) => {
+    async (req: Request<ReqParams, {}, {}>, res: Response<resBody>) => {
       const { username, size = 5, cursor = "" } = req.params;
       if (username === "") return res.send({ users: [] });
       if (!username)
@@ -25,10 +25,10 @@ const searchRoute = (app: Express) =>
 
 export default searchRoute;
 
-interface reqBody {
+interface ReqParams {
   username: string;
-  size: number;
-  cursor: string;
+  size?: number;
+  cursor?: string;
 }
 
 type resBody = { users: user[] } | error;
