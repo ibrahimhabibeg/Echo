@@ -33,7 +33,7 @@ const ChatCard = ({ name, to, message, createdAt }: propsType) => {
         </Text>
         <Text
           style={{
-            ...theme.fonts.labelSmall, opacity:0.7
+            ...theme.fonts.labelMedium, opacity:0.7
           }}
         >
           {createDateString(createdAt)}
@@ -42,7 +42,7 @@ const ChatCard = ({ name, to, message, createdAt }: propsType) => {
       <Text
         numberOfLines={1}
         style={{
-          ...theme.fonts.bodySmall, opacity:0.8
+          ...theme.fonts.bodyMedium, opacity:0.8
         }}
       >
         {messageText}
