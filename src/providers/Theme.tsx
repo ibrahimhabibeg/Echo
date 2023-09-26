@@ -40,7 +40,7 @@ export const ThemeContext = createContext({
 });
 
 export const ThemeProvider = ({ children }: { children: JSX.Element }) => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true);
   return (
     <ThemeContext.Provider
       value={{
