@@ -4,12 +4,12 @@ import { Message } from "../models";
 const getChatsRoute = (app: Express) => {
   app.get(
     "/chats",
-    async (req: Request<ReqParams, {}, ReqBody>, res: Response<ResBody>) => {
+    async (req: Request<{}, {}, ReqBody, ReqQuery>, res: Response<ResBody>) => {
       const { userId } = req.body;
-      const { size = 10 } = req.params;
-      const cursor = req.params.cursor
-        ? new Date(req.params.cursor)
-        : new Date();
+      const { size = 10 } = req.query;
+      const cursor = req.query.cursor
+        ? new Date(req.query.cursor)
+        : new Date();      
       try {
         const chats: chatI[] = await Message.aggregate([
           { $match: { $or: [{ to: userId }, { from: userId }] } },
@@ -60,7 +60,7 @@ interface chatI {
   createdAt: string;
 }
 
-interface ReqParams {
+interface ReqQuery {
   cursor?: NativeDate;
   size?: number;
 }

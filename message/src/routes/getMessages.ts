@@ -4,9 +4,9 @@ import { Message } from "../models";
 const getMessagesRoute = (app: Express) => {
   app.get(
     "/messages",
-    async (req: Request<ReqParams, {}, ReqBody>, res: Response<ResBody>) => {
+    async (req: Request<{}, {}, ReqBody, ReqQuery>, res: Response<ResBody>) => {
       const { userId } = req.body;
-      const { otherUser, cursor = Date.now(), size = 10 } = req.params;
+      const { otherUser, cursor = Date.now(), size = 10 } = req.query;
       if (!otherUser)
         return res.status(400).send({ message: "No user selected." });
       try {
@@ -53,7 +53,7 @@ interface ReqBody {
   userId: string;
 }
 
-interface ReqParams {
+interface ReqQuery {
   otherUser: string;
   cursor?: NativeDate;
   size?: number;

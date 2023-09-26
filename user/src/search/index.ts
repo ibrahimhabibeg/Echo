@@ -9,8 +9,8 @@ import { error } from "../types/error";
 const searchRoute = (app: Express) =>
   app.get(
     "/search",
-    async (req: Request<ReqParams, {}, {}>, res: Response<resBody>) => {
-      const { username, size = 5, cursor = "" } = req.params;
+    async (req: Request<{}, {}, {}, ReqQuery>, res: Response<resBody>) => {
+      const { username, size = 5, cursor = "" } = req.query;
       if (username === "") return res.send({ users: [] });
       if (!username)
         return res.status(400).send({ message: "No username provided" });
@@ -25,7 +25,7 @@ const searchRoute = (app: Express) =>
 
 export default searchRoute;
 
-interface ReqParams {
+interface ReqQuery {
   username: string;
   size?: number;
   cursor?: string;
