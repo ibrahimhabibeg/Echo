@@ -28,10 +28,6 @@ getChatsRoute(app);
 io.use(verifyUserIo);
 addConnection(io);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 app.on("dbConnected", () => {
   const PORT = process.env.PORT || 3000;
   app.listen(PORT, () => {

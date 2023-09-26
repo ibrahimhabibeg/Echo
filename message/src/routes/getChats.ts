@@ -4,9 +4,9 @@ import { Message } from "../models";
 const getChatsRoute = (app: Express) => {
   app.get(
     "/chats",
-    async (req: Request<{}, {}, ReqBody>, res: Response<ResBody>) => {
-      const { userId, size = 10 } = req.body;
-      const cursor = req.body.cursor ? new Date(req.body.cursor) : new Date();
+    async (req: Request<ReqBody, {}, {}>, res: Response<ResBody>) => {
+      const { userId, size = 10 } = req.params;
+      const cursor = req.params.cursor ? new Date(req.params.cursor) : new Date();
       try {
         const chats: chatI[] = await Message.aggregate([
           { $match: { $or: [{ to: userId }, { from: userId }] } },

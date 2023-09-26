@@ -4,8 +4,8 @@ import { Message } from "../models";
 const getMessagesRoute = (app: Express) => {
   app.get(
     "/messages",
-    async (req: Request<{}, {}, ReqBody>, res: Response<ResBody>) => {
-      const { userId, otherUser, cursor = Date.now(), size = 10 } = req.body;
+    async (req: Request<ReqBody, {}, {}>, res: Response<ResBody>) => {
+      const { userId, otherUser, cursor = Date.now(), size = 10 } = req.params;
       if (!otherUser)
         return res.status(400).send({ message: "No user selected." });
       try {
