@@ -2,7 +2,7 @@ import type { Express, Request, Response } from "express";
 import { authError, error } from "../types/error";
 import { User } from "../models";
 import bcrypt from "bcrypt";
-import { createJWT } from "../verification";
+import { createUserJWT } from "../verification";
 
 /**
  * Adds login route to the express server.
@@ -22,14 +22,13 @@ const login = async (req: Request<{}, {}, ReqBody>, res: Response<ResBody>) => {
   if (!user) return res.status(400).send(notRegistered);
   const isCorrectPassword = bcrypt.compareSync(password, user.password);
   if (!isCorrectPassword) return res.status(400).send(wrongPassword);
-  return res.send({ token: createJWT({ userId: user._id }) });
+  return res.send({ token: createUserJWT(user) });
 };
 
 /**
  * The type of the body for the request to login route.
  */
 interface ReqBody {
-  username: string;
   email: string;
   password: string;
 }

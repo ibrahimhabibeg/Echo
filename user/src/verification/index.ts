@@ -4,11 +4,20 @@ import jwt_decode from "jwt-decode";
 import jwt from "jsonwebtoken";
 
 /**
+ * Creates JWT with spcial identifier for the user.
+ * The idetifier is the username.
+ * @param data
+ * @returns JWT
+ */
+export const createUserJWT = (user: userI) =>
+  createJWT({ userId: user.username });
+
+/**
  * Creates JWT from given data.
  * @param data
  * @returns JWT
  */
-export const createJWT = (data) => {
+const createJWT = (data) => {
   const token = jwt.sign(data, process.env.JWT_SECRET);
   return "Bearer " + token;
 };
@@ -42,6 +51,12 @@ const invalidToken: error = {
 
 interface tokenDecoded {
   userId: string;
+}
+
+interface userI {
+  username: string;
+  _id: any;
+  email: string;
 }
 
 export default verifyRoute;
