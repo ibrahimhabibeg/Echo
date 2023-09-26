@@ -21,7 +21,7 @@ const createDateString = (dateString: string): string => {
   else return date.toLocaleDateString("en-GB");
 };
 
-const ChatCard = ({ name, to, from, message, createdAt }: propsType) => {
+const ChatCard = ({ name, to, message, createdAt }: propsType) => {
   const { theme } = useContext(ThemeContext);
   const messageText = `${name === to ? "Me" : name}: ${message}`;
 

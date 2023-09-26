@@ -1,22 +1,25 @@
-import { useContext } from "react";
-import { AuthContext } from "../providers/Auth";
 import ChatCard from "./ChatCard";
-import { Button, Text } from "react-native-paper";
+import { ActivityIndicator, Text } from "react-native-paper";
 import useChatList from "./useChatList";
+import { FlatList } from "react-native";
 
 const ChatsList = () => {
-  const { logout } = useContext(AuthContext);
-  const { data, isLoading } = useChatList();
+  const { data, isLoading, isFetching, fetchNextPage, hasNextPage, refetch } =
+    useChatList();
 
-  if (isLoading) return <Text>Loading ...</Text>;
+  if (isLoading) return <ActivityIndicator animating={true} />;
   else if (data)
     return (
-      <>
-        {data.map((chat) => (
-          <ChatCard key={chat._id} name={chat._id} {...chat} />
-        ))}
-        <Button onPress={logout}>logout</Button>
-      </>
+      <FlatList
+        data={data.pages.flat(1)}
+        onEndReached={() => hasNextPage && !isFetching && fetchNextPage()}
+        refreshing={isFetching}
+        onRefresh={refetch}
+        keyExtractor={(chat) => chat._id}
+        renderItem={({ item }) => (
+          <ChatCard key={item._id} name={item._id} {...item} />
+        )}
+      />
     );
   else return <Text>Can't reach server now. Please, try again later.</Text>;
 };
