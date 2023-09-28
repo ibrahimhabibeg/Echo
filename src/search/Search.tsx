@@ -3,8 +3,10 @@ import { useState } from "react";
 import useSearchUsers from "./useSearchUsers";
 import { FlatList } from "react-native";
 import SearchElement from "./SearchElement";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NavigationParamList } from "../Navigators/Logged";
 
-const Search = () => {
+const Search = ({ navigation }: props) => {
   const [searchQuery, setSearchQuery] = useState("");
   const { data, hasNextPage, isFetching, fetchNextPage, refetch } =
     useSearchUsers(searchQuery);
@@ -28,10 +30,12 @@ const Search = () => {
       refreshing={isFetching}
       onRefresh={refetch}
       keyExtractor={(user) => user.username}
-      renderItem={({ item }) => <SearchElement {...item} />}
+      renderItem={({ item }) => <SearchElement navigation={navigation} {...item} />}
       removeClippedSubviews={false}
     />
   );
 };
+
+type props = NativeStackScreenProps<NavigationParamList, "search">;
 
 export default Search;

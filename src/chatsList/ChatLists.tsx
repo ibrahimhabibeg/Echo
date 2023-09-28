@@ -2,8 +2,10 @@ import ChatCard from "./ChatCard";
 import { ActivityIndicator, Text } from "react-native-paper";
 import useChatList from "./useChatList";
 import { FlatList } from "react-native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { NavigationParamList } from "../Navigators/Logged";
 
-const ChatsList = () => {
+const ChatsList = ({ navigation }: props) => {
   const { data, isLoading, isFetching, fetchNextPage, hasNextPage, refetch } =
     useChatList();
 
@@ -17,11 +19,18 @@ const ChatsList = () => {
         onRefresh={refetch}
         keyExtractor={(chat) => chat._id}
         renderItem={({ item }) => (
-          <ChatCard key={item._id} name={item._id} {...item} />
+          <ChatCard
+            key={item._id}
+            name={item._id}
+            navigation={navigation}
+            {...item}
+          />
         )}
       />
     );
   else return <Text>Can't reach server now. Please, try again later.</Text>;
 };
+
+type props = NativeStackScreenProps<NavigationParamList, "chatsList">;
 
 export default ChatsList;

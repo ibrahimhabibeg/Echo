@@ -3,6 +3,8 @@ import { Text } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { useContext } from "react";
 import { ThemeContext } from "../providers/Theme";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { NavigationParamList } from "../Navigators/Logged";
 
 const createDateString = (dateString: string): string => {
   const SECOND = 1000;
@@ -14,26 +16,29 @@ const createDateString = (dateString: string): string => {
   const now = new Date();
   const delta = now.getTime() - date.getTime();
   if (delta < MINUTE) return "Now";
-  else if (delta < 2*MINUTE) return `${Math.floor(delta / MINUTE)} minute ago`;
+  else if (delta < 2 * MINUTE)
+    return `${Math.floor(delta / MINUTE)} minute ago`;
   else if (delta < HOUR) return `${Math.floor(delta / MINUTE)} minutes ago`;
-  else if (delta < 2*HOUR) return `${Math.floor(delta / HOUR)} hour ago`;
+  else if (delta < 2 * HOUR) return `${Math.floor(delta / HOUR)} hour ago`;
   else if (delta < DAY) return `${Math.floor(delta / HOUR)} hours ago`;
   else return date.toLocaleDateString("en-GB");
 };
 
-const ChatCard = ({ name, to, message, createdAt }: propsType) => {
+const ChatCard = ({ name, to, message, createdAt, navigation }: propsType) => {
   const { theme } = useContext(ThemeContext);
   const messageText = `${name === to ? "Me" : name}: ${message}`;
 
   return (
-    <Pressable style={styles.card}>
+    <Pressable
+      style={styles.card}
+      onPress={() => navigation.navigate("chat", { userId: name })}
+    >
       <View style={styles.topView}>
-        <Text variant="titleLarge" style={{}}>
-          {name}
-        </Text>
+        <Text variant="titleLarge">{name}</Text>
         <Text
           style={{
-            ...theme.fonts.labelMedium, opacity:0.7
+            ...theme.fonts.labelMedium,
+            opacity: 0.7,
           }}
         >
           {createDateString(createdAt)}
@@ -42,7 +47,8 @@ const ChatCard = ({ name, to, message, createdAt }: propsType) => {
       <Text
         numberOfLines={1}
         style={{
-          ...theme.fonts.bodyMedium, opacity:0.8
+          ...theme.fonts.bodyMedium,
+          opacity: 0.8,
         }}
       >
         {messageText}
@@ -66,10 +72,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
 });
+
 interface propsType {
   name: string;
   to: string;
   from: string;
   message: string;
   createdAt: string;
+  navigation: NativeStackNavigationProp<NavigationParamList, "chatsList">;
 }

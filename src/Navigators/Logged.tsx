@@ -1,11 +1,13 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ChatsList from "../chatsList/ChatLists";
 import Search from "../search/Search";
+import Chat from "../chat/Chat";
 import ChatListHeaderRight from "../chatsList/HeaderRight";
 
 export type NavigationParamList = {
   chatsList: undefined;
   search: undefined;
+  chat: { userId: string };
 };
 
 const Stack = createNativeStackNavigator<NavigationParamList>();
@@ -19,6 +21,11 @@ const LoggedNavigator = () => (
         headerRight: ChatListHeaderRight(navigation),
       })}
       component={ChatsList}
+    />
+    <Stack.Screen
+      name="chat"
+      options={({ route }) => ({ title: route.params.userId })}
+      component={Chat}
     />
     <Stack.Screen
       name="search"
