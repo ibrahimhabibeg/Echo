@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/Auth";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 const useChatList = () => {
   const { token } = useContext(AuthContext);
