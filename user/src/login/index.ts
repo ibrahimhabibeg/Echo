@@ -16,13 +16,13 @@ const loginRoute = (app: Express) => app.post("/login", login);
  * @param res
  * @returns
  */
-const login = async (req: Request<{}, {}, ReqBody>, res: Response<ResBody>) => {
+const login = async (req: Request<{}, {}, ReqBody>, res: Response<ResBody>) => {  
   const { email = "", password = "" } = req.body;
   const user = await User.findOne({ email });
   if (!user) return res.status(400).send(notRegistered);
   const isCorrectPassword = bcrypt.compareSync(password, user.password);
-  if (!isCorrectPassword) return res.status(400).send(wrongPassword);
-  return res.send({ token: createUserJWT(user) });
+  if (!isCorrectPassword) return res.status(400).send(wrongPassword);  
+  return res.send({ token: createUserJWT(user), userId: user.username });
 };
 
 /**
@@ -40,6 +40,7 @@ type ResBody = successRes | error;
 
 interface successRes {
   token: string;
+  userId: string;
 }
 
 const notRegistered: authError = {

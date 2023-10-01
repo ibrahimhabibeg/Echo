@@ -32,6 +32,7 @@ export type ResBody = successRes | error;
 
 interface successRes {
   token: string;
+  userId: string;
 }
 
 export default signupRoute;

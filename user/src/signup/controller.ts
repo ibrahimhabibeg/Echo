@@ -23,7 +23,7 @@ const signup = async (
     );
     const user = new User({ email, username, password: hashedPassword });
     await user.save();
-    return res.send({ token: createUserJWT(user) });
+    return res.send({ token: createUserJWT(user), userId: user.username });
   } catch (error) {
     return res.status(500).send(databaseError);
   }
