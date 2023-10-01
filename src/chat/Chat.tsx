@@ -2,7 +2,7 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NavigationParamList } from "../Navigators/Logged";
 import useChatMessages from "./useChatMessages";
 import { FlatList } from "react-native";
-import { Text, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import Message from "./Message";
 
 const Chat = ({

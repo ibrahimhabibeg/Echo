@@ -22,6 +22,7 @@ const LightTheme = {
   colors: {
     ...MD3LightTheme.colors,
     ...AdaptedLightTheme.colors,
+    primaryContainer: "#cbc3e3"
   },
 };
 const DarkTheme = {

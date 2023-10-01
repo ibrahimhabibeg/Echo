@@ -27,7 +27,9 @@ const Message = ({ message, from, to, createdAt }: messageType) => {
       }}
     >
       <Text variant="bodyLarge">{message}</Text>
-      <Text variant="labelSmall" style={{opacity:0.7}}>{createDateString(createdAt)}</Text>
+      <Text variant="labelSmall" style={{ opacity: 0.7 }}>
+        {createDateString(createdAt)}
+      </Text>
     </View>
   );
 };
