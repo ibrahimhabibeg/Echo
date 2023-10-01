@@ -2,6 +2,7 @@ export type authRes = authSuccessRes & authError;
 
 interface authSuccessRes {
   token: string;
+  userId: string;
 }
 
 interface authError {

@@ -9,7 +9,6 @@ const useChatMessages = (otherUser: string) => {
     queryFn: async ({ pageParam }): Promise<messageType[]> => {      
       const cursorString =
         typeof pageParam === "undefined" ? "" : "cursor=" + pageParam;
-      console.log(`${process.env.EXPO_PUBLIC_MESSAGE_SERVICE_URL}/messages?otherUser=${otherUser}&${cursorString}`);
       
       const response = await fetch(
         `${process.env.EXPO_PUBLIC_MESSAGE_SERVICE_URL}/messages?otherUser=${otherUser}&${cursorString}`,

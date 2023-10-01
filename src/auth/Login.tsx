@@ -26,8 +26,8 @@ const Login = ({ navigation }: propsType) => {
   const [loginData, setLoginData] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({ email: "", password: "" });
 
-  const onMutationFinish = ({ token, message, field }: authRes) => {    
-    if (token) return auth.login(token);
+  const onMutationFinish = ({ token, message, field, userId }: authRes) => {    
+    if (token) return auth.login({token, userId});
     setErrors((oldVal) => ({ ...oldVal, [field]: message }));
   };
 

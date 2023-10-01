@@ -34,8 +34,8 @@ const Signup = ({ navigation }: propsType) => {
     username: "",
   });
 
-  const onMutationFinish = ({ token, message, field }: authRes) => {    
-    if (token) return auth.login(token);
+  const onMutationFinish = ({ token, message, field, userId }: authRes) => {
+    if (token) return auth.login({ token, userId });
     setErrors((oldVal) => ({ ...oldVal, [field]: message }));
   };
 

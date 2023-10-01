@@ -12,10 +12,7 @@ const Chat = ({
 }: props) => {
   const { data, hasNextPage, isFetching, fetchNextPage, refetch } =
     useChatMessages(userId);
-  useEffect(()=>{
-    console.log(data);
-    
-  },[data])
+
   return (
     <FlatList
       data={data ? data.pages.flat(1) : []}
