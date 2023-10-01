@@ -2,8 +2,8 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NavigationParamList } from "../Navigators/Logged";
 import useChatMessages from "./useChatMessages";
 import { FlatList } from "react-native";
-import { Text } from "react-native-paper";
-import { useEffect } from "react";
+import { Text, TextInput } from "react-native-paper";
+import Message from "./Message";
 
 const Chat = ({
   route: {
@@ -20,7 +20,9 @@ const Chat = ({
       refreshing={isFetching}
       onRefresh={refetch}
       keyExtractor={(message) => message._id}
-      renderItem={({ item }) => <Text>{item.message}</Text>}
+      renderItem={({ item }) => <Message {...item}/>}
+      inverted={true}
+      ListHeaderComponent={<TextInput/>}
     />
   );
 };
