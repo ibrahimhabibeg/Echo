@@ -13,11 +13,11 @@ import { getMessagesRoute, getChatsRoute } from "./routes";
 
 const app = express();
 const io = new Server<
-  ClientToServerEvents,
+  ClientToServerEvents, 
   ServerToClientEvents,
   InterServerEvents,
   SocketData
->(4000);
+>(4000, { cors: { origin: "*" } });
 
 app.use(express.json());
 app.use(verifyUserExpress);
