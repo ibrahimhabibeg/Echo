@@ -48,7 +48,7 @@ const SocketHandler = ({ children }: { children: JSX.Element }) => {
       }
     );
 
-  const onRecieveMessage = (message: messageType) => {
+  const onRecieveMessage = (message: messageType) => {    
     updateChatList(message);
     updateChat(message);
   };
@@ -58,7 +58,7 @@ const SocketHandler = ({ children }: { children: JSX.Element }) => {
     return () => {
       socket.off("recieveMessage", onRecieveMessage);
     };
-  }, []);
+  }, [socket]);
 
   return children;
 };
