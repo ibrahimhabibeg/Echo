@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { AuthContext } from "../providers/Auth";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { chatType } from "../types";
 
 const useChatList = () => {
   const { token } = useContext(AuthContext);
@@ -29,11 +30,3 @@ const useChatList = () => {
 };
 
 export default useChatList;
-
-interface chatType {
-  _id: string;
-  to: string;
-  from: string;
-  message: string;
-  createdAt: string;
-}

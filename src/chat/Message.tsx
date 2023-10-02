@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { messageType } from "./types";
+import { messageType } from "../types";
 import { View } from "react-native";
 import { Text } from "react-native-paper";
 import { ThemeContext } from "../providers/Theme";
