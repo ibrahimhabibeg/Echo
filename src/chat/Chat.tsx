@@ -2,8 +2,9 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NavigationParamList } from "../Navigators/Logged";
 import useChatMessages from "./useChatMessages";
 import { FlatList } from "react-native";
-import { TextInput } from "react-native-paper";
 import Message from "./Message";
+import SendMessage from "./SendMessageInput";
+import KeyboardSpacer from "react-native-keyboard-spacer";
 
 const Chat = ({
   route: {
@@ -14,16 +15,21 @@ const Chat = ({
     useChatMessages(userId);
 
   return (
-    <FlatList
-      data={data ? data.pages.flat(1) : []}
-      onEndReached={() => hasNextPage && !isFetching && fetchNextPage()}
-      refreshing={isFetching}
-      onRefresh={refetch}
-      keyExtractor={(message) => message._id}
-      renderItem={({ item }) => <Message {...item}/>}
-      inverted={true}
-      ListHeaderComponent={<TextInput/>}
-    />
+    <>
+      <FlatList
+        data={data ? data.pages.flat(1) : []}
+        onEndReached={() => hasNextPage && !isFetching && fetchNextPage()}
+        refreshing={isFetching}
+        onRefresh={refetch}
+        keyExtractor={(message) => message._id}
+        renderItem={({ item }) => <Message {...item} />}
+        inverted={true}
+        ListHeaderComponent={<SendMessage to={userId} />}
+        stickyHeaderIndices={[0]}
+        invertStickyHeaders={false}
+      />
+      <KeyboardSpacer />
+    </>
   );
 };
 

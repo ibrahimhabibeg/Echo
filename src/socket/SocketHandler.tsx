@@ -2,25 +2,28 @@ import { useContext, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { messageType, chatType } from "../types";
 import { SocketContext } from "../providers/SocketProvider";
+import { AuthContext } from "../providers/Auth";
 
 const SocketHandler = ({ children }: { children: JSX.Element }) => {
   const queryClient = useQueryClient();
-  const {socket} = useContext(SocketContext)
+  const { socket } = useContext(SocketContext);
+  const { userId } = useContext(AuthContext);
 
   const updateChatList = (message: messageType) =>
     queryClient.setQueryData<InfiniteData<chatType[]>>(
       ["chats", "list"],
       (oldData) => {
+        const otherUser = userId === message.from ? message.to : message.from;
         if (oldData) {
           const isUserCached = oldData.pages
             .flatMap((_) => _)
-            .reduce((val, chat) => val || chat._id === message.from, false);
+            .reduce((val, chat) => val || chat._id === otherUser, false);
           if (isUserCached)
             return {
               ...oldData,
               pages: oldData.pages.map((page) =>
                 page.map((chat) => {
-                  if (chat._id === message.from)
+                  if (chat._id === otherUser)
                     return { ...message, _id: chat._id };
                   else return chat;
                 })
@@ -29,7 +32,7 @@ const SocketHandler = ({ children }: { children: JSX.Element }) => {
           else
             return {
               ...oldData,
-              pages: [[{ ...message, _id: message.from }], ...oldData.pages],
+              pages: [[{ ...message, _id: otherUser }], ...oldData.pages],
             };
         } else return oldData;
       }
@@ -37,7 +40,7 @@ const SocketHandler = ({ children }: { children: JSX.Element }) => {
 
   const updateChat = (message: messageType) =>
     queryClient.setQueryData<InfiniteData<messageType[]>>(
-      ["chat", message.from],
+      ["chat", userId === message.from ? message.to : message.from],
       (oldData) => {
         if (oldData)
           return {
@@ -48,7 +51,9 @@ const SocketHandler = ({ children }: { children: JSX.Element }) => {
       }
     );
 
-  const onRecieveMessage = (message: messageType) => {    
+  const onRecieveMessage = (message: messageType) => {
+    console.log(message);
+
     updateChatList(message);
     updateChat(message);
   };

@@ -1,5 +1,5 @@
 import ChatCard from "./ChatCard";
-import { ActivityIndicator, Text } from "react-native-paper";
+import { ActivityIndicator, Button, Text } from "react-native-paper";
 import useChatList from "./useChatList";
 import { FlatList } from "react-native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
@@ -8,7 +8,6 @@ import { NavigationParamList } from "../Navigators/Logged";
 const ChatsList = ({ navigation }: props) => {
   const { data, isLoading, isFetching, fetchNextPage, hasNextPage, refetch } =
     useChatList();
-
   if (isLoading) return <ActivityIndicator animating={true} />;
   else if (data)
     return (

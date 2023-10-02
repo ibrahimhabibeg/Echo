@@ -24,6 +24,7 @@ const Message = ({ message, from, to, createdAt }: messageType) => {
         borderBottomRightRadius: amISender ? 0 : 15,
         borderTopLeftRadius: amISender ? 15 : 0,
         borderBottomLeftRadius: amISender ? 15 : 0,
+        minWidth:130
       }}
     >
       <Text variant="bodyLarge">{message}</Text>
