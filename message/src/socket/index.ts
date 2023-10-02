@@ -24,6 +24,7 @@ const addConnection = (
         const newMessage = new Message({ from: userId, to, message });
         await newMessage.save();
         socket.to(to).emit("recieveMessage", newMessage);
+        socket.emit("recieveMessage", newMessage);
         return { isSent: true };
       } catch (error) {
         return { isSent: false };
