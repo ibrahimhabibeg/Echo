@@ -1,5 +1,6 @@
 import type { Express, Request, Response } from "express";
 import { Message } from "../models";
+import { messageType } from "../types";
 
 const getMessagesRoute = (app: Express) => {
   app.get(
@@ -36,18 +37,11 @@ const getMessagesRoute = (app: Express) => {
 
 type ResBody =
   | {
-      messages: messageI[];
+      messages: messageType[];
     }
   | {
       message: string;
     };
-
-interface messageI {
-  from: string;
-  to: string;
-  message: string;
-  createdAt: NativeDate;
-}
 
 interface ReqBody {
   userId: string;

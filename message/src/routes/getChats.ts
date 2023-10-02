@@ -1,5 +1,6 @@
 import type { Express, Request, Response } from "express";
 import { Message } from "../models";
+import { messageType } from "../types";
 
 const getChatsRoute = (app: Express) => {
   app.get(
@@ -52,13 +53,7 @@ type ResBody =
       message: string;
     };
 
-interface chatI {
-  _id: string;
-  to: string;
-  from: string;
-  message: string;
-  createdAt: string;
-}
+type chatI = {_id: string;} & messageType
 
 interface ReqQuery {
   cursor?: NativeDate;
