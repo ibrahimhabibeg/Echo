@@ -1,7 +1,7 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { NavigationParamList } from "../Navigators/Logged";
 import useChatMessages from "./useChatMessages";
-import { FlatList } from "react-native";
+import { FlatList, Platform } from "react-native";
 import Message from "./Message";
 import SendMessage from "./SendMessageInput";
 import KeyboardSpacer from "react-native-keyboard-spacer";
@@ -28,7 +28,7 @@ const Chat = ({
         stickyHeaderIndices={[0]}
         invertStickyHeaders={false}
       />
-      <KeyboardSpacer />
+      {Platform.OS === "ios" ? <KeyboardSpacer /> : <></>}
     </>
   );
 };
