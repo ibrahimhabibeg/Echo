@@ -13,7 +13,7 @@ services:
       - user-db
       - user-message
     env_file:
-      - ./user/.env
+      - ./.env
   message:
     build:
       context: ./message
@@ -30,7 +30,7 @@ services:
       - message-db
       - user-message
     env_file:
-      - ./message/.env
+      - ./.env
   mongo:
     restart: always
     image: mongo:7.0.0
@@ -43,7 +43,7 @@ services:
     expose:
       - 27017
     env_file:
-      - ./mongo/.env 
+      - ./.env 
 networks:
   user-db:
   message-db:
