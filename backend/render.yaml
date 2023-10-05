@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: user
+    runtime: docker
+    branch: main
+    rootDir: backend/user
+
+  - type: pserv
+    name: mongo
+    runtime: docker
+    rootDir: backend/mongo
+    disk:
+      name: data
+      mountPath: /data/db
+
+  - type: web
+    name: message
+    runtime: docker
+    branch: main
+    rootDir: backend/message
