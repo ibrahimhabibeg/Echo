@@ -87,15 +87,15 @@ cd Echo
 ```
 Create environment variables files for mobile
 ```bash
-touch mobile/.env backend/.env
+touch mobile/.env mongo/.env user/.env message/.env
 ```
-Add mobile environment variables to mobile/.env file
+Add backend services url to mobile/.env file
 ```
 EXPO_PUBLIC_USER_SERVICE_URL=http://MY_LOCAL_IP:3000
 EXPO_PUBLIC_MESSAGE_SERVICE_URL=http://MY_LOCAL_IP:3001
 EXPO_PUBLIC_MESSAGE_WEBSOCKET_URL=ws://MY_LOCAL_IP:3002
 ```
-Add backend environment variables to backend/.env file
+Add mongo initial data to mongo/.env file
 ```
 DB_USER=USER_USERNAME
 DB_PASS=USER_PASSWORD
@@ -105,7 +105,18 @@ MONGO_INITDB_ROOT_USERNAME=ROOT_USERNAME
 MONGO_INITDB_ROOT_PASSWORD=ROOT_PASSWORD
 MONGO_INITDB_DATABASE=chat
 ```
+Add db user data to both user/.env and message/.env files
+```
+DB_USER=USER_USERNAME
+DB_PASS=USER_PASSWORD
+```
 
+Add JWT and Bcrypt data to user/.env file
+```
+...
+SALT_ROUNDS=10
+JWT_SECRET=MY_JWT_SECRET
+```
 Start the backend in production mode
 ```bash
 cd backend
